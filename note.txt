@@ -1,0 +1,38 @@
+create next app: npx create-next-app@latest
+get assets from GreateStack youtube chanel
+change metatdata in layout.js
+import google form 'Inter': tittle and description
+change starting page: page.js
+define primary color, html smooth scrolling and hide scrollbar in global.css
+
+
+folder structure
+
+home page: page.js
+
+layout.js:
+clerkprovider -> appcontextprovider -> rest
+
+components
+    Sidebar.jsx
+    PromptBox.jsx
+    ChatLabel.jsx
+    Message.jsx
+
+config
+
+context
+    AppContext.jsx
+
+models
+
+.env
+    clerk key
+
+
+user authen using clerk:
+    clerk middleware.ts
+    wrap clerkprovider around rootlayout in layout.js
+
+for back end:
+    npm i axios mongoose openai svix prismjs react-hot-toast react-markdown 
