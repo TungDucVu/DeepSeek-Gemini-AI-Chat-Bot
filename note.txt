@@ -36,3 +36,6 @@ user authen using clerk:
 
 for back end:
     npm i axios mongoose openai svix prismjs react-hot-toast react-markdown 
+
+    routes: app/api
+    ai api: using gemini 2.5 flash
