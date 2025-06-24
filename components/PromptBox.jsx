@@ -40,10 +40,19 @@ const PromptBox = ({isLoading, setIsLoading}) => {
                 messages: [...(prev?.messages || []), userPrompt]
             }))
 
+            //debug
+            console.log('this is chatId and prompt before sent, fix in promptbox')
+            console.log(selectedChat._id)
+            console.log(prompt)
+
             const {data} = await axios.post('/api/chat/ai', {
                 chatId: selectedChat._id,
                 prompt
             })
+
+            //debug 
+            console.log('this is data after sent, fix in promptbox')
+            console.log(data)
 
             if (data.success) {
                 setChats((prevChats) => 
@@ -79,12 +88,12 @@ const PromptBox = ({isLoading, setIsLoading}) => {
                     }, i * 100)
                 }
             } else {
-                toast.error(data.messages)
+                toast.error(data.message)
                 setPrompt(promptCopy)
             }
 
         } catch (error) {
-            toast.error(data.messages)
+            toast.error(error.message)
             setPrompt(promptCopy)
         } finally {
             setIsLoading(false)

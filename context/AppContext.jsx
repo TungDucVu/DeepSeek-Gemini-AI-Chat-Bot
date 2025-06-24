@@ -1,7 +1,6 @@
 'use client'
 import { useAuth, useUser } from "@clerk/nextjs"
 import axios from "axios"
-import { NextResponse } from "next/server"
 import { createContext, useContext, useEffect, useState } from "react"
 import toast from "react-hot-toast"
 
@@ -21,7 +20,7 @@ export const AppContextProvider = ({children}) => {
         try {
             if (!user) return null
 
-            const token = getToken()
+            const token = await getToken()
 
             await axios.post('/api/chat/create', {}, {headers: {
                 Authorization: `Bearer ${token}`
@@ -41,7 +40,10 @@ export const AppContextProvider = ({children}) => {
             }})
             
             if (data.success) {
+                //debug
+                console.log('this is user chat, fix in appcontext')
                 console.log(data.data)
+
                 setChats(data.data)
 
                 //if user has no chat, create one
@@ -53,6 +55,9 @@ export const AppContextProvider = ({children}) => {
                     data.data.sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt))
                     //set recently updated chat as selected chat
                     setSelectedChat(data.data[0])
+                    
+                    //debug
+                    console.log('this is the first user chat, fix in appcontext')
                     console.log(data.data[0])
                 }
             } else {

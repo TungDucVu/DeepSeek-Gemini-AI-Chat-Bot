@@ -35,7 +35,9 @@ user authen using clerk:
     wrap clerkprovider around rootlayout in layout.js
 
 for back end:
-    npm i axios mongoose openai svix prismjs react-hot-toast react-markdown 
+    npm i axios mongoose openai svix prismjs react-hot-toast react-markdown @google/generative-ai
 
     routes: app/api
     ai api: using gemini 2.5 flash
+
+fix create chat and fetch chat

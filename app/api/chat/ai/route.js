@@ -2,13 +2,14 @@ export const maxDuration = 60;
 import connectDB from "@/config/db";
 import Chat from "@/models/Chat";
 import { getAuth } from "@clerk/nextjs/server";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { NextResponse } from "next/server";
 
-// google gen ai api key
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+// google api key
+const ai = new GoogleGenerativeAI( process.env.GOOGLE_API_KEY );
 
 export async function POST(req) {
+    console.log('ai endpoint hit')
     try {
         const {userId} = getAuth(req)
         const {prompt, chatId} = await req.json()
@@ -21,16 +22,21 @@ export async function POST(req) {
         await connectDB()
         const data = await Chat.findOne({userId, _id: chatId})
 
+        //debug
+        console.log('this is data after findOne by userId and chatId in Chat')
+        console.log(data)
+
         //create user message object
         const userPrompt = {
             role: "user",
             content: prompt,
             timestamp: Date.now()
         }
-        data.message.push(userPrompt)
+
+        data.messages.push(userPrompt)
 
         //call gemini api to get a chat completion
-        const model = ai.getGenerativeModel({ model: "gemini-1.5-flash" });
+        const model = ai.getGenerativeModel({ model: "gemini-2.5-flash" });
 
         const result = await model.generateContent(prompt);
 
@@ -42,13 +48,11 @@ export async function POST(req) {
             timestamp: Date.now(),
         };
 
-        data.message.push(aiMessage);
+        data.messages.push(aiMessage);
         await data.save();
 
         return NextResponse.json({ success: true, data: aiMessage });
     } catch (error) {
-        return NextResponse.json({success: false, error: message})
+        return NextResponse.json({success: false, message: error.message})
     }
 }
-
-await main();
