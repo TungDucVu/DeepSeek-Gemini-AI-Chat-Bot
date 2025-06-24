@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import "./prism.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { AppContextProvider } from "@/context/AppContext";
 import { Toaster } from "react-hot-toast";
@@ -10,7 +11,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "DeepSeek - Tung Duc Vu",
+  title: "DeepSeek-GeminiAPI - Tung Duc Vu",
   description: "Fullstack project",
 };
 

@@ -40,19 +40,10 @@ const PromptBox = ({isLoading, setIsLoading}) => {
                 messages: [...(prev?.messages || []), userPrompt]
             }))
 
-            //debug
-            console.log('this is chatId and prompt before sent, fix in promptbox')
-            console.log(selectedChat._id)
-            console.log(prompt)
-
             const {data} = await axios.post('/api/chat/ai', {
                 chatId: selectedChat._id,
                 prompt
             })
-
-            //debug 
-            console.log('this is data after sent, fix in promptbox')
-            console.log(data)
 
             if (data.success) {
                 setChats((prevChats) => 
@@ -109,7 +100,7 @@ const PromptBox = ({isLoading, setIsLoading}) => {
     return (
         <form 
             onSubmit={sendPrompt}
-            className={`w-full ${false ? "max-w-3xl" : "max-w-2xl"} bg-[#404045] p-4 rounded-3xl mt-4 transition-all`}>
+            className={`w-full ${selectedChat?.messages.length > 0 ? "max-w-3xl" : "max-w-2xl"} bg-[#404045] p-4 rounded-3xl mt-4 transition-all`}>
             <textarea 
                 className='outline-none w-full resize-none overflow-hidden break-words bg-transparent'
                 rows={2}
@@ -120,7 +111,7 @@ const PromptBox = ({isLoading, setIsLoading}) => {
                 <div className='flex items-center gap-2'>
                     <p className='flex items-center gap-2 text-xs border border-gray-300/40 px-2 py-1 rounded-full cursor-pointer hover:bg-gray-500/20 transition'>
                         <Image className='h-5' src={assets.deepthink_icon} alt=''/>
-                        DeepThink (R1)
+                        Gemini API
                     </p>
                     <p className='flex items-center gap-2 text-xs border border-gray-300/40 px-2 py-1 rounded-full cursor-pointer hover:bg-gray-500/20 transition'>
                         <Image className='h-5' src={assets.search_icon} alt=''/>

@@ -40,10 +40,6 @@ export const AppContextProvider = ({children}) => {
             }})
             
             if (data.success) {
-                //debug
-                console.log('this is user chat, fix in appcontext')
-                console.log(data.data)
-
                 setChats(data.data)
 
                 //if user has no chat, create one
@@ -55,10 +51,6 @@ export const AppContextProvider = ({children}) => {
                     data.data.sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt))
                     //set recently updated chat as selected chat
                     setSelectedChat(data.data[0])
-                    
-                    //debug
-                    console.log('this is the first user chat, fix in appcontext')
-                    console.log(data.data[0])
                 }
             } else {
                 toast.error(data.message)
