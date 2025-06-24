@@ -9,7 +9,6 @@ import { NextResponse } from "next/server";
 const ai = new GoogleGenerativeAI( process.env.GOOGLE_API_KEY );
 
 export async function POST(req) {
-    console.log('ai endpoint hit')
     try {
         const {userId} = getAuth(req)
         const {prompt, chatId} = await req.json()
@@ -21,10 +20,6 @@ export async function POST(req) {
         //find chat docs in db based on chatId and userId
         await connectDB()
         const data = await Chat.findOne({userId, _id: chatId})
-
-        //debug
-        console.log('this is data after findOne by userId and chatId in Chat')
-        console.log(data)
 
         //create user message object
         const userPrompt = {
