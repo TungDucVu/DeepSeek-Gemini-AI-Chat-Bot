@@ -1,5 +1,10 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Project Overview
+
+This project replicates an AI chatbot using the DeepSeek interface and the Google Gemini API.
+It is built using the MERN Stack (MongoDB, Express.js, React, and Node.js).
+
 ## Getting Started
 
 First, run the development server:
